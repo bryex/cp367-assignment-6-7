@@ -1,0 +1,156 @@
+# Q2 Results 
+
+# ---------------------
+# Q2 (A) - Source Code
+# ---------------------
+
+#!/bin/bash
+
+# Task 2 - birthdaycountdown.sh
+# -----------------------------
+
+echo "Starting birthdaycountdown.sh..."
+echo
+
+# Constants
+SEC_IN_DAY=86400
+
+# Greet user 
+user=$(whoami)
+echo "Hello $user."
+echo
+
+# User Input
+read -p "Enter the month of your birth (MM): " b_month
+read -p "Enter the day of your birth (DD): " b_day
+echo
+
+# User birthday
+echo "Birth date   (MM/DD): $b_month/$b_day"
+
+# Current Date
+curr_month=$(date +'%m')
+curr_day=$(date +'%d')
+year=$(date +'%y')
+echo "Current date (MM/DD): $curr_month/$curr_day"
+echo
+
+# Birthday passed
+if ((  $curr_month > $b_month ))
+then 
+    ((year+=1))
+elif (( $curr_month == $b_month ))
+then 
+    if (( $curr_day > $b_day )) 
+    then
+        ((year+=1))
+    fi
+fi
+
+# Convert dates to epoch
+current_date=$(date +%s) 
+birth_date=$(date -j -f "%d-%m-%y" $b_day-$b_month-$year +%s)
+
+# Date difference 
+(( epoch_days_until_birthday = birth_date - current_date ))
+days_until_birthday=$((epoch_days_until_birthday/SEC_IN_DAY))
+
+
+# Print output
+if (( $days_until_birthday == 0 ))
+then 
+    echo "Happy Birthday!"
+elif (( $days_until_birthday == 1 ))
+then 
+    echo "Tomorrow is your birthday."
+else
+    echo "There are $days_until_birthday days until your birthday."
+fi
+
+echo
+echo "...ending birthdaycountdown.sh"
+
+# ---------------------
+# Q2 (A) - Testing
+# ---------------------
+
+➜  CP367 - Assignment 6 & 7 git:(master) ✗ ./birthdaycountdown.sh  
+Starting birthdaycountdown.sh...
+
+Hello mikehoang.
+
+Enter the month of your birth (MM): 4
+Enter the day of your birth (DD): 2
+
+Birth date   (MM/DD): 4/2
+Current date (MM/DD): 04/03
+
+There are 365 days until your birthday.
+
+...ending birthdaycountdown.sh
+➜  CP367 - Assignment 6 & 7 git:(master) ✗ ./birthdaycountdown.sh
+Starting birthdaycountdown.sh...
+
+Hello mikehoang.
+
+Enter the month of your birth (MM): 4
+Enter the day of your birth (DD): 3
+
+Birth date   (MM/DD): 4/3
+Current date (MM/DD): 04/03
+
+Happy Birthday!
+
+...ending birthdaycountdown.sh
+➜  CP367 - Assignment 6 & 7 git:(master) ✗ ./birthdaycountdown.sh
+Starting birthdaycountdown.sh...
+
+Hello mikehoang.
+
+Enter the month of your birth (MM): 4
+Enter the day of your birth (DD): 4
+
+Birth date   (MM/DD): 4/4
+Current date (MM/DD): 04/03
+
+Tomorrow is your birthday.
+
+...ending birthdaycountdown.sh
+➜  CP367 - Assignment 6 & 7 git:(master) ✗ ./birthdaycountdown.sh
+Starting birthdaycountdown.sh...
+
+Hello mikehoang.
+
+Enter the month of your birth (MM): 5
+Enter the day of your birth (DD): 1
+
+Birth date   (MM/DD): 5/1
+Current date (MM/DD): 04/03
+
+There are 28 days until your birthday.
+
+...ending birthdaycountdown.sh
+➜  CP367 - Assignment 6 & 7 git:(master) ✗ ./birthdaycountdown.sh
+Starting birthdaycountdown.sh...
+
+Hello mikehoang.
+
+Enter the month of your birth (MM): 2
+Enter the day of your birth (DD): 1
+
+Birth date   (MM/DD): 2/1
+Current date (MM/DD): 04/03
+
+There are 304 days until your birthday.
+
+...ending birthdaycountdown.sh
+
+
+# ---------------------
+# Q2 (B) - Project Plan
+# ---------------------
+
+# ---------------------
+# Q2 (C) - Source Code
+# ---------------------
+
