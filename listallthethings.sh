@@ -29,8 +29,6 @@ do
     if [ '$file_found = true' ]
     then 
         ls -l $file
-    else
-        echo "$file doesn't exists in the current directory or the on beneath."
     fi
 
     # Reset flags
