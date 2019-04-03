@@ -1,0 +1,120 @@
+# Q1 Results 
+
+# ---------------------
+# Source Code
+# ---------------------
+
+#!/bin/bash
+
+# Task 1 - listallthings.sh
+# -------------------------
+
+echo "Starting listallthings.sh..."
+echo
+
+file_arr=( "$@" )
+
+# Loop all the arguments
+for file in "${file_arr[@]}"
+do
+    echo "file: $file"
+   
+    # Check if file is in current directory or the one below
+    if [ -f $file ]
+    then 
+        file_found=true 
+    else 
+        cd ../
+        if [ -f $file ]
+        then
+            file_found=true
+        fi
+    fi
+    
+    # List the file
+    if [ '$file_found = true' ]
+    then 
+        ls -i $file	# or ls -l $file 
+    fi
+
+    # Reset flags
+    file_found=false
+    cd "$OLDPWD" 
+    echo
+
+done
+
+echo "...ending listallthings.sh"
+
+
+# ---------------------
+# Q1 (A)
+# ---------------------
+
+➜  CP367 - Assignment 6 & 7 git:(master) ✗ ./listallthethings.sh temp.sh temp2.sh
+Starting listallthings.sh...
+
+file: temp.sh
+-rwxr-xr-x  1 mikehoang  staff  116 30 Mar 15:03 temp.sh
+
+file: temp2.sh
+-rw-r--r--  1 mikehoang  staff  0  3 Apr 09:49 temp2.sh
+
+...ending listallthings.sh
+➜  CP367 - Assignment 6 & 7 git:(master) ✗ ./listallthethings.sh temp.sh temp2.sh dne.txt
+Starting listallthings.sh...
+
+file: temp.sh
+-rwxr-xr-x  1 mikehoang  staff  116 30 Mar 15:03 temp.sh
+
+file: temp2.sh
+-rw-r--r--  1 mikehoang  staff  0  3 Apr 09:49 temp2.sh
+
+file: dne.txt
+ls: dne.txt: No such file or directory
+
+...ending listallthings.sh
+
+# ---------------------
+# Q1 (B)
+# ---------------------
+
+➜  CP367 - Assignment 6 & 7 git:(master) ✗ ./listallthethings.sh temp.sh temp2.sh dne.txt
+Starting listallthings.sh...
+
+file: temp.sh
+11067356 temp.sh
+
+file: temp2.sh
+11591054 temp2.sh
+
+file: dne.txt
+ls: dne.txt: No such file or directory
+
+...ending listallthings.sh
+
+# ---------------------
+# Q1 (C)
+# ---------------------
+➜  Assignment 6 & 7 git:(master) git merge question_1b 
+Updating 700f90d..c20439a
+Fast-forward
+ listallthethings.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+➜  Assignment 6 & 7 git:(master) git log --oneline --graph --decorate --all
+* c20439a (HEAD -> master, origin/question_1b, origin/master, origin/HEAD, question_1b) question 1b
+* 700f90d removed redundant error message
+* f98a694 question 1a
+* 3b1ec35 Update README.md
+* 727bf0d init commit
+
+# ---------------------
+# Q1 (D)
+# ---------------------
+When the two branches were merged, there was no merge conflict. This is because of my choice in using a local branch. Since the branch wasn't pushed to remote (ie. `git push -u origin question_1b`), there was no conflict when it pulled from my local machine. This resulted in a quick change from my branch to master. I then pushed the master back into the repository. 
+
+Since the only change required from question 1b to question 1c was a single change in letter (i.e line 31; `ls -l $file` vs `ls -i $file`) even if there was a merge conflict, it would be a very easy change to resolve.
+
+
+
