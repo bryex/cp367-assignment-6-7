@@ -28,7 +28,7 @@ do
     # List the file
     if [ '$file_found = true' ]
     then 
-        ls -l $file
+        ls -i $file
     fi
 
     # Reset flags
